@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\PortoFree.Domain\PortoFree.Domain.csproj" />
+  </ItemGroup>
+
 </Project>
