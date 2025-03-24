@@ -1,6 +1,11 @@
+#configs
 .vs
-.github/
+
+#builds
 **/obj/
 **/bin/
 
 **/Log
+
+#security
+**/appsettings.json
