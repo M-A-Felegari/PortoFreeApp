@@ -1,4 +1,7 @@
+using Microsoft.AspNetCore.Identity;
+using PortoFree.Domain.Entities;
 using PortoFree.Infrastructure.Extensions;
+using PortoFree.Infrastructure.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,6 +24,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.MapGroup("/identity").MapIdentityApi<User>();
 
 app.UseAuthorization();
 

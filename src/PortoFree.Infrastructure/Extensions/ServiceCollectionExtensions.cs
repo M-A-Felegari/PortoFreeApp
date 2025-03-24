@@ -1,6 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using PortoFree.Domain.Entities;
 using PortoFree.Infrastructure.Persistence;
 
 namespace PortoFree.Infrastructure.Extensions;
@@ -15,5 +17,10 @@ public static class ServiceCollectionExtensions
         {
             options.UseSqlServer(connectionString);
         });
+
+        services.AddIdentityApiEndpoints<User>()
+            .AddRoles<IdentityRole<int>>()
+            .AddEntityFrameworkStores<DataContext>();
+
     }
 }

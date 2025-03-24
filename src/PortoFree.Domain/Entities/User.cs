@@ -1,8 +1,9 @@
-﻿namespace PortoFree.Domain.Entities;
+﻿using Microsoft.AspNetCore.Identity;
 
-public class User
+namespace PortoFree.Domain.Entities;
+
+public class User : IdentityUser<int>
 {
-    public int Id { get; set; } //temp id because we want to use identityUser
     public int UsedSpace { get; set; }
     public int TotalSpace { get; set; }
     public bool IsBanned { get; set; }
