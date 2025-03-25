@@ -2,7 +2,7 @@
 
 namespace PortoFree.Domain.Repositories;
 
-interface IUserSkillsRepository
+public interface IUserSkillsRepository
 {
     public Task<(IEnumerable<UserSkill> userSkills, int? nextCursor)> GetAllBySeekPaginationAsync(
         int fromId,

@@ -2,7 +2,7 @@
 
 namespace PortoFree.Domain.Repositories;
 
-interface ISkillsRepository
+public interface ISkillsRepository
 {
     public Task<(IEnumerable<Skill> skills, int totalSkills)> GetAllAsync(
         string? searchParams,

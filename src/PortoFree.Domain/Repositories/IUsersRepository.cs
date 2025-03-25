@@ -2,7 +2,7 @@
 
 namespace PortoFree.Domain.Repositories;
 
-interface IUsersRepository
+public interface IUsersRepository
 {
     public Task<(IEnumerable<User> users, int totalPages)> GetAllAsync(
         string? searchParams,

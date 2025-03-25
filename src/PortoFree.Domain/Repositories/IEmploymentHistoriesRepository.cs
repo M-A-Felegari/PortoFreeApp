@@ -2,7 +2,7 @@
 
 namespace PortoFree.Domain.Repositories;
 
-interface IEmploymentHistoriesRepository
+public interface IEmploymentHistoriesRepository
 {
     public Task<(IEnumerable<EmploymentHistory> comments, int? nextCursor)> GetAllBySeekPagination(
         int fromId,

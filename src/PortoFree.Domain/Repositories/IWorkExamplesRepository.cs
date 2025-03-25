@@ -2,7 +2,7 @@
 
 namespace PortoFree.Domain.Repositories;
 
-interface IWorkExamplesRepository
+public interface IWorkExamplesRepository
 {
     public Task<(IEnumerable<WorkExample>, int? nextCursor)> GetAllBySeekPagination(
         int fromId,

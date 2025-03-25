@@ -2,7 +2,7 @@
 
 namespace PortoFree.Domain.Repositories;
 
-interface ICommentsRepository
+public interface ICommentsRepository
 {
     public Task<(IEnumerable<Comment> comments, int? nextCursor)> GetAllBySeekPagination(
         int fromId,
