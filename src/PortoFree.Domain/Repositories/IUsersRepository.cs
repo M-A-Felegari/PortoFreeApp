@@ -4,7 +4,7 @@ namespace PortoFree.Domain.Repositories;
 
 public interface IUsersRepository
 {
-    public Task<(IEnumerable<User> users, int totalPages)> GetAllAsync(
+    public Task<(IEnumerable<User> users, int totalUsersCount)> GetAllAsync(
         string? searchParams,
         int pageNumber,
         int pageSize

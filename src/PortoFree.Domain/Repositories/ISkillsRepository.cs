@@ -4,7 +4,7 @@ namespace PortoFree.Domain.Repositories;
 
 public interface ISkillsRepository
 {
-    public Task<(IEnumerable<Skill> skills, int totalSkills)> GetAllAsync(
+    public Task<(IEnumerable<Skill> skills, int totalSkillsCount)> GetAllAsync(
         string? searchParams,
         int pageNumber,
         int pageSize);
