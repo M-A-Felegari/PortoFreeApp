@@ -1,5 +1,6 @@
 #configs
 .vs
+.idea
 
 #builds
 **/obj/
