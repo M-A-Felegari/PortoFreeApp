@@ -4,7 +4,7 @@ namespace PortoFree.Domain.Repositories;
 
 public interface IWorkExamplesRepository
 {
-    public Task<(IEnumerable<WorkExample>, int? nextCursor)> GetAllBySeekPagination(
+    public Task<(IEnumerable<WorkExample> workExamples, int? nextCursor)> GetAllBySeekPagination(
         int fromId,
         int limit);
 
