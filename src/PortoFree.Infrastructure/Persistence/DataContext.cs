@@ -5,7 +5,7 @@ using PortoFree.Domain.Entities;
 
 namespace PortoFree.Infrastructure.Persistence;
 
-public class DataContext(DbContextOptions options) :
+internal class DataContext(DbContextOptions options) :
     IdentityDbContext<User,IdentityRole<int>,int>(options)
 {
     public DbSet<WorkExample> WorkExamples { get; set; }
