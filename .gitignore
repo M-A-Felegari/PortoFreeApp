@@ -10,3 +10,4 @@
 
 #security
 **/appsettings.json
+*.user
