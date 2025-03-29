@@ -1,8 +1,8 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using PortoFree.Application.Interfaces.Seeding;
+using PortoFree.Application.Interfaces.Seeders;
 
-namespace PortoFree.Infrastructure.Seeding;
+namespace PortoFree.Infrastructure.Seeders;
 
 internal static class SeedingServiceCollectionExtensions
 {

@@ -5,7 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using PortoFree.Domain.Entities;
 using PortoFree.Infrastructure.Persistence;
 using PortoFree.Infrastructure.Repositories;
-using PortoFree.Infrastructure.Seeding;
+using PortoFree.Infrastructure.Seeders;
 
 namespace PortoFree.Infrastructure.Extensions;
 

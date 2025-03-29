@@ -1,4 +1,4 @@
-﻿namespace PortoFree.Infrastructure.Seeding;
+﻿namespace PortoFree.Infrastructure.Seeders;
 
 internal class OwnerSettings
 {

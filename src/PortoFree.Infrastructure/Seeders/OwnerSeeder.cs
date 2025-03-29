@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
-using PortoFree.Application.Interfaces.Seeding;
+using PortoFree.Application.Interfaces.Seeders;
 using PortoFree.Domain.Constants;
 using PortoFree.Domain.Entities;
 
-namespace PortoFree.Infrastructure.Seeding;
+namespace PortoFree.Infrastructure.Seeders;
 
 internal class OwnerSeeder : IOwnerSeeder
 {

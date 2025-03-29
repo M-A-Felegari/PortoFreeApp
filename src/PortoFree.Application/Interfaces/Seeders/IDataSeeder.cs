@@ -1,4 +1,4 @@
-﻿namespace PortoFree.Application.Interfaces.Seeding;
+﻿namespace PortoFree.Application.Interfaces.Seeders;
 
 public interface IDataSeeder
 {

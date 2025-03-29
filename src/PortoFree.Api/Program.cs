@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Identity;
-using PortoFree.Application.Interfaces.Seeding;
+using PortoFree.Application.Interfaces.Seeders;
 using PortoFree.Domain.Entities;
 using PortoFree.Infrastructure.Extensions;
 using PortoFree.Infrastructure.Persistence;
