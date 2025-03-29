@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using PortoFree.Domain.Entities;
 using PortoFree.Infrastructure.Persistence;
 using PortoFree.Infrastructure.Repositories;
+using PortoFree.Infrastructure.Seeding;
 
 namespace PortoFree.Infrastructure.Extensions;
 
@@ -18,6 +19,8 @@ public static class ServiceCollectionExtensions
         {
             options.UseSqlServer(connectionString);
         });
+
+        services.AddSeedingServices(configuration);
 
         services.AddRepositories();
 

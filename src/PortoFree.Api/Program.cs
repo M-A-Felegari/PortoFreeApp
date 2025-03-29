@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Identity;
+using PortoFree.Application.Interfaces.Seeding;
 using PortoFree.Domain.Entities;
 using PortoFree.Infrastructure.Extensions;
 using PortoFree.Infrastructure.Persistence;
@@ -15,6 +16,10 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
+
+using var scope = app.Services.CreateScope();
+var seedingService = scope.ServiceProvider.GetRequiredService<IOwnerSeeder>();
+await seedingService.SeedAsync();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
