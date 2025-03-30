@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Http.HttpResults;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using PortoFree.Domain.Constants;
 
 namespace PortoFree.Api.Controllers;
 
@@ -7,6 +9,7 @@ namespace PortoFree.Api.Controllers;
 [Route("api/skills")]
 public class SkillsController : ControllerBase
 {
+    [Authorize(UserRoles.Owner)]
     [HttpGet]
     public IActionResult GetAllSkills()
     {
