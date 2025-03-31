@@ -2,10 +2,12 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using PortoFree.Application.Users.UserContext;
 using PortoFree.Domain.Entities;
 using PortoFree.Infrastructure.Persistence;
 using PortoFree.Infrastructure.Repositories;
 using PortoFree.Infrastructure.Seeders;
+using PortoFree.Infrastructure.Users.UserContext;
 
 namespace PortoFree.Infrastructure.Extensions;
 
@@ -23,10 +25,13 @@ public static class ServiceCollectionExtensions
         services.AddSeedingServices(configuration);
 
         services.AddRepositories();
+        
+        services.AddUserContextServices();
 
         services.AddIdentityApiEndpoints<User>()
             .AddRoles<IdentityRole<int>>()
             .AddEntityFrameworkStores<DataContext>();
+        
 
     }
 }
