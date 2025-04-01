@@ -5,6 +5,7 @@ using PortoFree.Domain.Constants;
 using PortoFree.Domain.Entities;
 using PortoFree.Infrastructure.Extensions;
 using PortoFree.Infrastructure.Persistence;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -56,6 +57,12 @@ builder.Services.AddSwaggerGen(options =>
             []
         }
     });
+});
+
+builder.Host.UseSerilog((context, configuration) =>
+{
+    configuration
+        .ReadFrom.Configuration(context.Configuration);
 });
 
 var app = builder.Build();
