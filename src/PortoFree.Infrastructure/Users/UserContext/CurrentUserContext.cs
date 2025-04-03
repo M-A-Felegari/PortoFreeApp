@@ -1,6 +1,6 @@
 ﻿using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
-using PortoFree.Application.Users.UserContext;
+using PortoFree.Application.Features.Users.UserContext;
 
 namespace PortoFree.Infrastructure.Users.UserContext;
 

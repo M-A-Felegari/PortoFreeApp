@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using PortoFree.Application.Users.UserContext;
+using PortoFree.Application.Features.Users.UserContext;
 
 namespace PortoFree.Infrastructure.Users.UserContext;
 

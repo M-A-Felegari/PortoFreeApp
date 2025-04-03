@@ -1,4 +1,4 @@
-﻿namespace PortoFree.Application.Users.UserContext;
+﻿namespace PortoFree.Application.Features.Users.UserContext;
 
 public interface ICurrentUserContext
 {
