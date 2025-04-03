@@ -1,4 +1,4 @@
-﻿namespace PortoFree.Application.Features.Users.UserContext;
+﻿namespace PortoFree.Application.Users.UserContext;
 
 public record CurrentUser(int Id, string Username, IEnumerable<string> Roles)
 {

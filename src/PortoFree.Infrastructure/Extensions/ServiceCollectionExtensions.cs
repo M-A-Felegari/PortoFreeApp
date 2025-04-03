@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using PortoFree.Application.Interfaces.Logging;
+using PortoFree.Application.Users.UserContext;
 using PortoFree.Domain.Entities;
 using PortoFree.Infrastructure.Logging;
 using PortoFree.Infrastructure.Persistence;
