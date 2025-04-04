@@ -3,11 +3,13 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using PortoFree.Application.Interfaces.Logging;
+using PortoFree.Application.Interfaces.StorageSavers;
 using PortoFree.Domain.Entities;
 using PortoFree.Infrastructure.Logging;
 using PortoFree.Infrastructure.Persistence;
 using PortoFree.Infrastructure.Repositories;
 using PortoFree.Infrastructure.Seeders;
+using PortoFree.Infrastructure.StorageSavers;
 using PortoFree.Infrastructure.Users.UserContext;
 
 namespace PortoFree.Infrastructure.Extensions;
@@ -34,6 +36,7 @@ public static class ServiceCollectionExtensions
             .AddEntityFrameworkStores<DataContext>();
         
         services.AddScoped(typeof(IAppLogger<>), typeof(AppLogger<>));
+        services.AddScoped<IFileStorageService,FileStorageService>();
 
     }
 }
