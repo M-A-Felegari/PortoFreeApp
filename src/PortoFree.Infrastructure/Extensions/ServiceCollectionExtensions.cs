@@ -35,8 +35,9 @@ public static class ServiceCollectionExtensions
             .AddRoles<IdentityRole<int>>()
             .AddEntityFrameworkStores<DataContext>();
         
+        services.AddStorageSavers();
+        
         services.AddScoped(typeof(IAppLogger<>), typeof(AppLogger<>));
-        services.AddScoped<IFileStorageService,FileStorageService>();
 
     }
 }
