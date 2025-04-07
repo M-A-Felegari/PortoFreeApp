@@ -5,7 +5,7 @@
 #builds
 **/obj/
 **/bin/
-
+**/wwwroot
 **/Log
 
 #security
