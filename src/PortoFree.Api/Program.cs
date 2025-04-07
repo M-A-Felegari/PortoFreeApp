@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.OpenApi.Models;
+using PortoFree.Application.Extensions;
 using PortoFree.Application.Interfaces.Seeders;
 using PortoFree.Domain.Constants;
 using PortoFree.Domain.Entities;
@@ -12,6 +13,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddInfrastructure(builder.Configuration);
+builder.Services.AddApplication();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
