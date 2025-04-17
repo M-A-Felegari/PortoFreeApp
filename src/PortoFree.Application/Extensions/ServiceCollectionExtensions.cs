@@ -1,4 +1,9 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using FluentValidation;
+using FluentValidation.AspNetCore;
+using MediatR;
+using Microsoft.Extensions.DependencyInjection;
+using PortoFree.Application.Behaviors;
+using PortoFree.Application.Services;
 
 namespace PortoFree.Application.Extensions;
 
@@ -13,5 +18,11 @@ public static class ServiceCollectionExtensions
         });
         
         services.AddAutoMapper(applicationAssembly);
+        
+        services.AddValidatorsFromAssembly(applicationAssembly)
+            .AddFluentValidationAutoValidation();
+        services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
+        
+        services.AddServices();
     }
 }
