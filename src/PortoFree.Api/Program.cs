@@ -1,5 +1,7 @@
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.OpenApi.Models;
+using PortoFree.Api.Middlewares;
 using PortoFree.Application.Extensions;
 using PortoFree.Application.Interfaces.Seeders;
 using PortoFree.Domain.Constants;
@@ -67,6 +69,8 @@ builder.Host.UseSerilog((context, configuration) =>
         .ReadFrom.Configuration(context.Configuration);
 });
 
+builder.Services.AddMiddlewares();
+
 var app = builder.Build();
 
 using var scope = app.Services.CreateScope();
@@ -79,6 +83,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 app.UseHttpsRedirection();
 
