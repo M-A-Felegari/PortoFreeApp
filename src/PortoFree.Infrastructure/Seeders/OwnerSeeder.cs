@@ -60,6 +60,7 @@ internal class OwnerSeeder : IOwnerSeeder
         {
             Email = _ownerSettings.Email,
             UserName = _ownerSettings.Username,
+            TotalSpace = _ownerSettings.TotalSpaceBytes
         };
     }
 }
