@@ -13,6 +13,18 @@ internal class UserSpaceService : IUserSpaceService
         _userManager = userManager;
     }
 
+    public async Task EnsureUserHasEnoughSpaceAsync(long userId, long uploadedFileSize)
+    {
+        if (uploadedFileSize < 0)
+            throw new ArgumentOutOfRangeException(nameof(uploadedFileSize),"Uploaded file size cannot be negative");
+        
+        var user = await _userManager.FindByIdAsync(userId.ToString())??
+                   throw new NotFoundException(typeof(User), userId.ToString());
+
+        if (user.FreeSpace < uploadedFileSize)
+            throw new NotEnoughSpaceException();
+    }
+
     public async Task IncreaseUserUsedSpaceAsync(int userId, long uploadedFileSize)
     {
         if (uploadedFileSize < 0)
@@ -22,7 +34,7 @@ internal class UserSpaceService : IUserSpaceService
                    throw new NotFoundException(typeof(User), userId.ToString());
 
         if (user.FreeSpace < uploadedFileSize)
-            throw new ForbiddenException("user don't have enough free space for image"); //todo: separate in NotEnoughSpaceException
+            throw new NotEnoughSpaceException();
         
         user.UsedSpace += uploadedFileSize;
         await _userManager.UpdateAsync(user);

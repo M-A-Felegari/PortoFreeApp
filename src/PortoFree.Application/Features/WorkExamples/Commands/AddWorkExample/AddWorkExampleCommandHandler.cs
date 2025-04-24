@@ -48,6 +48,7 @@ public class AddWorkExampleCommandHandler : IRequestHandler<AddWorkExampleComman
         string? imagePath = null;
         if (request.ImageFileStream is not null)
         {
+            await _userSpaceService.EnsureUserHasEnoughSpaceAsync(user.Id, request.ImageFileStream.Length);
             var saveFileName = _fileNamingService.GenerateUniqueFileName(request.ImageFileName!);
             imagePath = await _fileStorageService.SaveFileAsync(request.ImageFileStream,saveFileName);
             await _userSpaceService.IncreaseUserUsedSpaceAsync(user.Id, request.ImageFileStream.Length);
