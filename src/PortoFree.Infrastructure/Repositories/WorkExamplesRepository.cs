@@ -44,7 +44,6 @@ internal class WorkExamplesRepository : IWorkExamplesRepository
     public async Task<int> AddAsync(WorkExample newWorkExample)
     {
         await _context.WorkExamples.AddAsync(newWorkExample);
-
         await _context.SaveChangesAsync();
 
         return newWorkExample.Id;

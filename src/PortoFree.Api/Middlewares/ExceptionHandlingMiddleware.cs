@@ -1,6 +1,7 @@
 ﻿using System.Net;
 using System.Text.Json;
 using FluentValidation;
+using PortoFree.Application.Exceptions;
 using PortoFree.Application.Interfaces.Logging;
 
 namespace PortoFree.Api.Middlewares;
@@ -22,8 +23,8 @@ public class ExceptionHandlingMiddleware : IMiddleware
         }
         catch (ValidationException ex)
         {
-            _logger.LogWarning("validation exception : {@Exception}",ex);
-            
+            _logger.LogWarning("validation exception : {@Exception}", ex);
+
             context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
             context.Response.ContentType = "application/json";
             var response = new
@@ -32,6 +33,14 @@ public class ExceptionHandlingMiddleware : IMiddleware
             };
 
             await context.Response.WriteAsJsonAsync(response);
+        }
+        catch (ForbiddenException ex)
+        {
+            _logger.LogWarning("forbidden exception : {@Exception}", ex);
+            
+            context.Response.StatusCode = (int)HttpStatusCode.Forbidden;
+            context.Response.ContentType = "application/json";
+            await context.Response.WriteAsJsonAsync(new { message = ex.Message }); //todo: make this responses more flexible
         }
         catch (Exception e)
         {

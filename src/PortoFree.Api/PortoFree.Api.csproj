@@ -20,4 +20,8 @@
     <ProjectReference Include="..\PortoFree.Infrastructure\PortoFree.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\" />
+  </ItemGroup>
+
 </Project>
