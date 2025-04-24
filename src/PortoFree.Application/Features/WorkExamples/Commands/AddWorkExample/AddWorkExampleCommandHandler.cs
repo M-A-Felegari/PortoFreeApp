@@ -4,6 +4,7 @@ using PortoFree.Application.Exceptions;
 using PortoFree.Application.Features.Users.UserContext;
 using PortoFree.Application.Interfaces.Logging;
 using PortoFree.Application.Interfaces.StorageSavers;
+using PortoFree.Application.Services.UserSpace;
 using PortoFree.Domain.Entities;
 using PortoFree.Domain.Repositories;
 
@@ -17,11 +18,14 @@ public class AddWorkExampleCommandHandler : IRequestHandler<AddWorkExampleComman
     private readonly IWorkExamplesRepository _workExamplesRepository;
     private readonly IAppLogger<AddWorkExampleCommandHandler> _logger;
     private readonly ICurrentUserContext _currentUserContext;
+    private readonly IUserSpaceService _userSpaceService;
 
     public AddWorkExampleCommandHandler(IFileStorageService fileStorageService,
         IWorkExamplesRepository workExamplesRepository,
         IAppLogger<AddWorkExampleCommandHandler> logger,
-        ICurrentUserContext currentUserContext, IMapper mapper, IFileNamingService fileNamingService)
+        ICurrentUserContext currentUserContext, IMapper mapper,
+        IFileNamingService fileNamingService,
+        IUserSpaceService userSpaceService)
     {
         _fileStorageService = fileStorageService;
         _workExamplesRepository = workExamplesRepository;
@@ -29,6 +33,7 @@ public class AddWorkExampleCommandHandler : IRequestHandler<AddWorkExampleComman
         _currentUserContext = currentUserContext;
         _mapper = mapper;
         _fileNamingService = fileNamingService;
+        _userSpaceService = userSpaceService;
     }
 
     public async Task<int> Handle(AddWorkExampleCommand request, CancellationToken cancellationToken)
@@ -45,6 +50,7 @@ public class AddWorkExampleCommandHandler : IRequestHandler<AddWorkExampleComman
         {
             var saveFileName = _fileNamingService.GenerateUniqueFileName(request.ImageFileName!);
             imagePath = await _fileStorageService.SaveFileAsync(request.ImageFileStream,saveFileName);
+            await _userSpaceService.IncreaseUserUsedSpaceAsync(user.Id, request.ImageFileStream.Length);
         }
         
         var newWorkExample = _mapper.Map<AddWorkExampleCommand, WorkExample>(request);
