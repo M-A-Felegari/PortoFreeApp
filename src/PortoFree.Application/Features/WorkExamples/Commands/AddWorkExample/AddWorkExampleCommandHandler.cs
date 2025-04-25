@@ -56,6 +56,7 @@ public class AddWorkExampleCommandHandler : IRequestHandler<AddWorkExampleComman
         
         var newWorkExample = _mapper.Map<AddWorkExampleCommand, WorkExample>(request);
         newWorkExample.ImagePath = imagePath;
+        newWorkExample.OwnerId = user.Id;
         
         var createdId = await _workExamplesRepository.AddAsync(newWorkExample);
         
