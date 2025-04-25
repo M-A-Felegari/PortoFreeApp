@@ -44,6 +44,7 @@ public class FileStorageService : IFileStorageService
         var saveFullPath = Path.Combine(uploadsBasePath, fileName);
         
         await using var fileStream = new FileStream(saveFullPath, FileMode.Create);
+        stream.Seek(0, SeekOrigin.Begin);
         await stream.CopyToAsync(fileStream);
         
         return GetWebNormalizedPath(saveFullPath);
