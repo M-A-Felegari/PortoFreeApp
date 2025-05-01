@@ -16,18 +16,19 @@ internal class WorkExamplesRepository : IWorkExamplesRepository
 
     //todo: think about make Pagination service to keep DRY
     public async Task<(IEnumerable<WorkExample> workExamples, int? nextCursor)> GetAllBySeekPagination(
+        int ownerId,
         int fromId,
         int limit)
     {
         var items = await _context.WorkExamples
-            .Where(w => w.Id > fromId)
+            .Where(w => w.OwnerId == ownerId && w.Id > fromId)
             .Take(limit + 1)
             .ToListAsync();
 
         var hasNextCursor = items.Count > limit;
 
-        var workExamplesResult = hasNextCursor ? items.Take(limit) : items;
-        var nextCursor = hasNextCursor ? items.Last().Id : (int?)null;
+        var workExamplesResult = hasNextCursor ? items.Take(limit).ToList() : items;
+        var nextCursor = hasNextCursor ? workExamplesResult.Last().Id : (int?)null;
 
         return (workExamplesResult, nextCursor);
     }
