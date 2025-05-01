@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PortoFree.Api.Dtos;
 using PortoFree.Application.Features.WorkExamples.Commands.AddWorkExample;
+using PortoFree.Application.Features.WorkExamples.Queries.GetWorkExamples;
 using PortoFree.Domain.Constants;
 
 namespace PortoFree.Api.Controllers;
@@ -16,6 +17,14 @@ public class WorkExamplesController : ControllerBase
     public WorkExamplesController(IMediator mediator)
     {
         _mediator = mediator;
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> GetWorkExamples(int ownerId, int nextCursor, int limit)
+    {
+        var result = await _mediator.Send(new GetWorkExamplesQuery(ownerId, nextCursor, limit));
+        
+        return Ok(result);
     }
 
     [HttpPost]

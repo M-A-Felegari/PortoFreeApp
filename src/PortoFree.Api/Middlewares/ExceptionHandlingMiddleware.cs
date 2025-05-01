@@ -37,10 +37,21 @@ public class ExceptionHandlingMiddleware : IMiddleware
         catch (ForbiddenException ex)
         {
             _logger.LogWarning("forbidden exception : {@Exception}", ex);
-            
+
             context.Response.StatusCode = (int)HttpStatusCode.Forbidden;
             context.Response.ContentType = "application/json";
-            await context.Response.WriteAsJsonAsync(new { message = ex.Message }); //todo: make this responses more flexible
+            await context.Response.WriteAsJsonAsync(new
+                { message = ex.Message }); //todo: make this responses more flexible
+        }
+        catch (NotFoundException ex)
+        {
+            _logger.LogWarning("not found exception : {@Exception}", ex);
+            
+            context.Response.StatusCode = (int)HttpStatusCode.NotFound;
+            context.Response.ContentType = "application/json";
+            await context.Response.WriteAsJsonAsync(new
+                { message = ex.Message }); //todo: make this responses more flexible
+            
         }
         catch (Exception e)
         {
