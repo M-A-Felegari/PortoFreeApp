@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PortoFree.Api.Dtos;
 using PortoFree.Application.Features.WorkExamples.Commands.AddWorkExample;
+using PortoFree.Application.Features.WorkExamples.Commands.UpdateWorkExample;
 using PortoFree.Application.Features.WorkExamples.Queries.GetWorkExamples;
 using PortoFree.Domain.Constants;
 
@@ -45,5 +46,22 @@ public class WorkExamplesController : ControllerBase
         var createdId = await _mediator.Send(command);
         
         return Ok(createdId);
+    }
+
+    [HttpPut("{id:int}")]
+    [Authorize(UserRoles.User)]
+    public async Task<IActionResult> Update(int id, UpdateWorkExampleDto request)
+    {
+        var command = new UpdateWorkExampleCommand()
+        {
+            Id = id,
+            Title = request.Title,
+            Description = request.Description,
+            StartDate = request.StartDate,
+            FinishDate = request.FinishDate,
+        };
+        
+        await _mediator.Send(command);
+        return NoContent();
     }
 }

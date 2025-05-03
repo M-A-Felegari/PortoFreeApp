@@ -1,0 +1,49 @@
+﻿using AutoMapper;
+using MediatR;
+using PortoFree.Application.Exceptions;
+using PortoFree.Application.Features.Users.UserContext;
+using PortoFree.Application.Interfaces.Logging;
+using PortoFree.Application.Services.Auth;
+using PortoFree.Domain.Entities;
+using PortoFree.Domain.Repositories;
+
+namespace PortoFree.Application.Features.WorkExamples.Commands.UpdateWorkExample;
+
+public class UpdateWorkExampleCommandHandler : IRequestHandler<UpdateWorkExampleCommand>
+{
+    private readonly IWorkExamplesRepository _workExamplesRepository;
+    private readonly IAppLogger<UpdateWorkExampleCommandHandler> _logger;
+    private readonly ICurrentUserContext _currentUserContext;
+    private readonly IMapper _mapper;
+    private readonly IResourceOwnershipAuthorization _resourceOwnershipAuthorization;
+
+    public UpdateWorkExampleCommandHandler(IWorkExamplesRepository workExamplesRepository,
+        IAppLogger<UpdateWorkExampleCommandHandler> logger,
+        ICurrentUserContext currentUserContext,
+        IMapper mapper,
+        IResourceOwnershipAuthorization resourceOwnershipAuthorization)
+    {
+        _workExamplesRepository = workExamplesRepository;
+        _logger = logger;
+        _currentUserContext = currentUserContext;
+        _mapper = mapper;
+        _resourceOwnershipAuthorization = resourceOwnershipAuthorization;
+    }
+
+    public async Task Handle(UpdateWorkExampleCommand request, CancellationToken cancellationToken)
+    {
+        var user = _currentUserContext.GetCurrentUser() ??
+                   throw new UnauthenticatedException();
+        
+        _logger.LogInformation("try to add new work example with data: {@request} by {user}",request);
+        
+        var workExample = await _workExamplesRepository.GetAsync(request.Id) ??
+                          throw new NotFoundException(typeof(WorkExample), request.Id.ToString());
+        
+        workExample = _mapper.Map(request, workExample);
+        
+        _resourceOwnershipAuthorization.EnsureUserOwnsWorkExample(user.Id, workExample);
+        
+        await _workExamplesRepository.UpdateAsync(workExample);
+    }
+}
