@@ -65,7 +65,12 @@ public class ExceptionHandlingMiddleware : IMiddleware
         {
             _logger.LogError("Exception occured during request handling, error is : {@error}", e);
             context.Response.StatusCode = 500;
-            await context.Response.WriteAsync("something went wrong");
+            
+            var env = context.RequestServices.GetService<IWebHostEnvironment>();
+            if (env is null || env.IsDevelopment())
+                await context.Response.WriteAsJsonAsync(new { message = e.Message });
+            else
+                await context.Response.WriteAsync("something went wrong");
         }
     }
 }
