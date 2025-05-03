@@ -51,7 +51,15 @@ public class ExceptionHandlingMiddleware : IMiddleware
             context.Response.ContentType = "application/json";
             await context.Response.WriteAsJsonAsync(new
                 { message = ex.Message }); //todo: make this responses more flexible
+
+        }
+        catch (UnauthenticatedException ex) //todo: change exception to UnAuthorizaed
+        {
+            _logger.LogWarning("unauthenticated exception : {@Exception}", ex);
             
+            context.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
+            context.Response.ContentType = "application/json";
+            await context.Response.WriteAsJsonAsync(new { message = ex.Message }); //todo: make this responses more flexible
         }
         catch (Exception e)
         {
