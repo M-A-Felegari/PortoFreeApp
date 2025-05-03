@@ -15,19 +15,19 @@ public class UpdateWorkExampleCommandHandler : IRequestHandler<UpdateWorkExample
     private readonly IAppLogger<UpdateWorkExampleCommandHandler> _logger;
     private readonly ICurrentUserContext _currentUserContext;
     private readonly IMapper _mapper;
-    private readonly IResourceOwnershipAuthorization _resourceOwnershipAuthorization;
+    private readonly IResourceAuthorizationService _resourceAuthorizationService;
 
     public UpdateWorkExampleCommandHandler(IWorkExamplesRepository workExamplesRepository,
         IAppLogger<UpdateWorkExampleCommandHandler> logger,
         ICurrentUserContext currentUserContext,
         IMapper mapper,
-        IResourceOwnershipAuthorization resourceOwnershipAuthorization)
+        IResourceAuthorizationService resourceAuthorizationService)
     {
         _workExamplesRepository = workExamplesRepository;
         _logger = logger;
         _currentUserContext = currentUserContext;
         _mapper = mapper;
-        _resourceOwnershipAuthorization = resourceOwnershipAuthorization;
+        _resourceAuthorizationService = resourceAuthorizationService;
     }
 
     public async Task Handle(UpdateWorkExampleCommand request, CancellationToken cancellationToken)
@@ -42,7 +42,7 @@ public class UpdateWorkExampleCommandHandler : IRequestHandler<UpdateWorkExample
         
         workExample = _mapper.Map(request, workExample);
         
-        _resourceOwnershipAuthorization.EnsureUserOwnsWorkExample(user.Id, workExample);
+        _resourceAuthorizationService.EnsureUserCanEditWorkExample(user, workExample);
         
         await _workExamplesRepository.UpdateAsync(workExample);
     }

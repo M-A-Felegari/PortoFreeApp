@@ -12,6 +12,6 @@ public static class ServicesServiceCollectionExtensions
     {
         services.AddScoped<IFileValidator, ImageValidator>();
         services.AddScoped<IUserSpaceService, UserSpaceService>();
-        services.AddScoped<IResourceOwnershipAuthorization, ResourceOwnershipAuthorization>();
+        services.AddScoped<IResourceAuthorizationService, ResourceAuthorizationService>();
     }
 }
