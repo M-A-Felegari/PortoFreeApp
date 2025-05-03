@@ -38,10 +38,10 @@ public class AddWorkExampleCommandHandler : IRequestHandler<AddWorkExampleComman
 
     public async Task<int> Handle(AddWorkExampleCommand request, CancellationToken cancellationToken)
     {
-        _logger.LogInformation("try to add new work example with data: {@request} by {user}",request);
-
         var user = _currentUserContext.GetCurrentUser() ??
                    throw new UnauthenticatedException();
+        
+        _logger.LogInformation("try to add new work example with data: {@request} by {@user}",request, user);
         
         _logger.LogInformation("user: {@user}", user);
 

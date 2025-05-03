@@ -35,7 +35,7 @@ public class UpdateWorkExampleCommandHandler : IRequestHandler<UpdateWorkExample
         var user = _currentUserContext.GetCurrentUser() ??
                    throw new UnauthenticatedException();
         
-        _logger.LogInformation("try to update work example with data: {@request} by {user}",request);
+        _logger.LogInformation("try to update work example with data: {@request} by {@user}",request,user);
         
         var workExample = await _workExamplesRepository.GetAsync(request.Id) ??
                           throw new NotFoundException(typeof(WorkExample), request.Id.ToString());
