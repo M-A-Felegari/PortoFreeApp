@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PortoFree.Api.Dtos;
 using PortoFree.Application.Features.WorkExamples.Commands.AddWorkExample;
+using PortoFree.Application.Features.WorkExamples.Commands.DeleteWorkExample;
 using PortoFree.Application.Features.WorkExamples.Commands.UpdateWorkExample;
 using PortoFree.Application.Features.WorkExamples.Queries.GetWorkExamples;
 using PortoFree.Domain.Constants;
@@ -62,6 +63,15 @@ public class WorkExamplesController : ControllerBase
         };
         
         await _mediator.Send(command);
+        return NoContent();
+    }
+
+    [HttpDelete("{id:int}")]
+    [Authorize(UserRoles.User)]
+    public async Task<IActionResult> Delete(int id)
+    {
+        await _mediator.Send(new DeleteWorkExampleCommand(id));
+        
         return NoContent();
     }
 }
