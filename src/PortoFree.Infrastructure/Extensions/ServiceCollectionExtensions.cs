@@ -6,6 +6,7 @@ using PortoFree.Application.Interfaces.Logging;
 using PortoFree.Application.Interfaces.StorageSavers;
 using PortoFree.Domain.Entities;
 using PortoFree.Infrastructure.Logging;
+using PortoFree.Infrastructure.Messaging;
 using PortoFree.Infrastructure.Persistence;
 using PortoFree.Infrastructure.Repositories;
 using PortoFree.Infrastructure.Seeders;
@@ -26,18 +27,15 @@ public static class ServiceCollectionExtensions
         });
 
         services.AddSeedingServices(configuration);
-
         services.AddRepositories();
-        
         services.AddUserContextServices();
-
         services.AddIdentityApiEndpoints<User>()
             .AddRoles<IdentityRole<int>>()
             .AddEntityFrameworkStores<DataContext>();
         
         services.AddStorageSavers();
-        
         services.AddScoped(typeof(IAppLogger<>), typeof(AppLogger<>));
+        services.AddMessaging();
 
     }
 }
