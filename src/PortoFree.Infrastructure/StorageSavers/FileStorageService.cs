@@ -69,4 +69,18 @@ public class FileStorageService : IFileStorageService
         
         _logger.LogInformation("File at path: {path} successfully deleted", physicalPath);
     }
+
+    public long GetFileSize(string webNormalizedPath)
+    {
+        var physicalPath = GetPhysicalPath(webNormalizedPath);
+
+        if (!File.Exists(physicalPath))
+        {
+            _logger.LogWarning("try to get file size file but File does not exist at {path}", physicalPath);
+            throw new FileNotFoundException($"File {physicalPath} not found.");
+        }
+        
+        var file = new FileInfo(physicalPath);
+        return file.Length;
+    }
 }
